@@ -15,12 +15,14 @@ const Home = () => {
   const [refresh, setRefresh] = useState(false);
   const navigation = useNavigation();
 
-  const fetchRecipes = async () =>
-    Api.get('/10')
-      .then((res) => {
-        setRecipes(res.data);
-      })
-      .catch((e) => console.log({ e }));
+  const fetchRecipes = async () => {
+    try {
+      const { data } = await Api.get('/10');
+      setRecipes(data);
+    } catch (error) {
+      console.log({ error });
+    }
+  };
 
   useEffect(() => {
     fetchRecipes();
@@ -44,13 +46,14 @@ const Home = () => {
     );
   };
 
-  const handleRefresh = () => {
+  const handleRefresh = async () => {
     setRefresh(true);
-    fetchRecipes().then(() => setRefresh(false));
+    await fetchRecipes();
+    setRefresh(false);
   };
   return (
     <View style={styles.container}>
-      {recipes.length ? (
+      {!!recipes.length ? (
         <FlatList
           data={recipes}
           refreshing={refresh}
