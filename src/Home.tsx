@@ -61,7 +61,15 @@ const Home = () => {
           ListEmptyComponent={() => <Text> No content found</Text>}
         />
       ) : (
-        <ActivityIndicator />
+        <View
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%',
+          }}>
+          <ActivityIndicator />
+        </View>
       )}
     </View>
   );
@@ -75,6 +83,7 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingVertical: 25,
     backgroundColor: 'white',
+    padding: 12,
   },
   box: {
     height: 20,
